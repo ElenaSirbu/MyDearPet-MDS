@@ -24,5 +24,6 @@ Autentificare și Profil Utilizator: Utilizatorii pot crea conturi personale pen
 8. Ca utilizator care a adoptat un animal, doresc să pot lăsa o recenzie și o evaluare despre experiența mea de adopție, pentru a ajuta alți utilizatori în luarea deciziilor.
 9. Ca utilizator, doresc să primesc notificări în timp real despre noi animale disponibile pentru adopție sau despre actualizări ale stării adopțiilor.
 10. Ca utilizator, doresc ca datele mele personale să fie protejate și să respectați normele de confidențialitate, pentru a avea încredere în utilizarea platformei pentru adopții.
-
+## Backlog
+**[Backlog][https://github.com/users/ElenaSirbu/projects/1]**
 
