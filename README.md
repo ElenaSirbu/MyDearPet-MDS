@@ -1,1 +1,3 @@
-# AstroApp-MDS
+# MyDearPet-MDS
+## Descrierea aplicatiei
+  MyDearPet este o aplicație web dedicată adopției animalelor de companie, creată pentru a facilita procesul de adopție și pentru a conecta iubitorii de animale cu animalele aflate în căutarea unui cămin iubitor. Aplicația permite utilizatorilor să caute, să exploreze și să adopte animale de companie disponibile în adăposturi sau centre de adopție partenere. Cu ajutorul MyDearPet, utilizatorii pot descoperi detalii despre animalele de companie, inclusiv fotografii, descrieri, vârste și alte informații relevante, astfel încât să poată lua decizii informate în legătură cu adopția.
