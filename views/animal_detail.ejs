@@ -1,0 +1,19 @@
+<!-- views/animal_detail.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalii Animal</title>
+</head>
+<body>
+    <h1>Detalii despre <%= pet.species %></h1>
+    <p>Rasă: <%= pet.breed %></p>
+    <p>Vârstă: <%= pet.age %> ani</p>
+    <p>Descriere: <%= pet.description %></p>
+    <% if (pet.photo_url) { %>
+        <img src="<%= pet.photo_url %>" alt="<%= pet.species %>">
+    <% } %>
+    <a href="/explore">Înapoi la Lista de Animale</a>
+</body>
+</html>

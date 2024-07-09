@@ -1,0 +1,63 @@
+<!-- explore.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animale Disponibile pentru Adopție</title>
+</head>
+<body>
+    <h1>Animale Disponibile pentru Adopție</h1>
+    <div>
+        <form action="/pets/filter" method="get">
+            <label for="species">Specie:</label>
+            <input type="text" id="species" name="species">
+            <label for="breed">Rasă:</label>
+            <input type="text" id="breed" name="breed">
+            <label for="age">Vârstă:</label>
+            <input type="number" id="age" name="age">
+            <button type="submit">Filtrează</button>
+        </form>
+    </div>
+    <div>
+        <% pets.forEach(pet => { %>
+            <div>
+                <h2><%= pet.species %> - <%= pet.breed %></h2>
+                <p>Vârstă: <%= pet.age %> ani</p>
+                <p><%= pet.description %></p>
+                <% if (pet.photo_url) { %>
+                    <img src="<%= pet.photo_url %>" alt="<%= pet.species %>">
+                <% } %>
+                <button class="likeButton" data-animal-id="<%= pet.animal_id %>">Like</button>
+                <a href="/pets/<%= pet.animal_id %>">Vezi detalii</a>
+            </div>
+        <% }) %>
+    </div>
+
+    <script>
+        // JavaScript pentru gestionarea butoanelor Like
+        document.addEventListener('DOMContentLoaded', function() {
+            const likeButtons = document.querySelectorAll('.likeButton');
+
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const animalId = this.getAttribute('data-animal-id');
+                    fetch(`/addToFavorites/${animalId}`, {
+                        method: 'POST',
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to add animal to favorites');
+                        }
+                        alert('Animal added to favorites!');
+                    })
+                    .catch(error => {
+                        console.error('Error adding animal to favorites:', error);
+                        alert('Failed to add animal to favorites. Please try again later.');
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

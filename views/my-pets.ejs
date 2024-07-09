@@ -1,0 +1,27 @@
+<!-- my-pets.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Pets</title>
+</head>
+<body>
+    <h1>My Pets</h1>
+    <div>
+        <h2>Favorite Pets</h2>
+        <% favoritePets.forEach(pet => { %>
+            <div>
+                <h3><%= pet.species %> - <%= pet.breed %></h3>
+                <p>Age: <%= pet.age %> years</p>
+                <p><%= pet.description %></p>
+                <% if (pet.photo_url) { %>
+                    <img src="<%= pet.photo_url %>" alt="<%= pet.species %>">
+                <% } %>
+                <a href="/pets/<%= pet.animal_id %>">View Details</a>
+            </div>
+        <% }) %>
+    </div>
+    <a href="/dashboard">Back to Dashboard</a>
+</body>
+</html>

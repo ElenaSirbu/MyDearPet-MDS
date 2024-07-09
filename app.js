@@ -23,6 +23,12 @@ app.use(session({
   saveUninitialized: true,
 }));
 
+function requireLogin(req, res, next) {
+    if (!req.session.user) {
+      return res.redirect('/login');
+    }
+    next();
+  }
 // Configurarea conexiunii la baza de date MySQL
 const con = mysql.createConnection({
   host: 'localhost',
@@ -59,6 +65,7 @@ app.get('/dashboard', (req, res) => {
   }
   res.sendFile(path.join(__dirname, 'src', 'dashboard.html'));
 });
+
 
 // Ruta pentru inregistrare
 app.post('/register', async (req, res) => {
@@ -257,7 +264,126 @@ app.post('/updateProfile', (req, res) => {
       }
     );
   });
+
+  app.get('/add-pet', requireLogin, (req, res) => {
+    res.render('add-pet');
+  });
+
+  app.post('/add-pet', requireLogin, (req, res) => {
+    const { species, breed, age, description, photo_url } = req.body;
+    con.query('INSERT INTO animals (species, breed, age, description, photo_url) VALUES (?, ?, ?, ?, ?)',
+      [species, breed, age, description, photo_url],
+      (err, result) => {
+        if (err) {
+          console.error('Eroare la adăugarea animalului:', err);
+          return res.status(500).send('Eroare la adăugarea animalului');
+        }
+        res.redirect('/explore');
+      });
+  });
   
+// Ruta pentru a afisa formularul de adaugare a unui animal
+app.get('/pets/add', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    res.render('add-pet');
+});
+
+// Ruta pentru a procesa adaugarea unui animal
+app.post('/pets/add', (req, res) => {
+    const { species, breed, age, description, photo_url } = req.body;
+    const query = 'INSERT INTO animals (species, breed, age, description, photo_url) VALUES (?, ?, ?, ?, ?)';
+    con.query(query, [species, breed, age, description, photo_url], (err, results) => {
+        if (err) {
+            console.error('Eroare la inserare:', err);
+            return res.status(500).send('Eroare la inserare');
+        }
+        res.redirect('/explore');
+    });
+});
+
+// Ruta pentru a obtine lista de animale disponibile
+app.get('/explore', (req, res) => {
+    const query = 'SELECT * FROM animals ORDER BY animal_id DESC';
+    con.query(query, (err, results) => {
+        if (err) {
+            console.error('Eroare la interogare:', err);
+            return res.status(500).send('Eroare la interogare');
+        }
+        res.render('explore', { pets: results });
+    });
+});
+
+// Ruta pentru filtrarea animalelor
+app.get('/pets/filter', (req, res) => {
+    const { species, breed, age } = req.query;
+    let query = 'SELECT * FROM animals WHERE 1=1';
+    const filters = [];
+
+    if (species) {
+        filters.push(`species = ${mysql.escape(species)}`);
+    }
+    if (breed) {
+        filters.push(`breed = ${mysql.escape(breed)}`);
+    }
+    if (age) {
+        filters.push(`age = ${mysql.escape(age)}`);
+    }
+
+    if (filters.length > 0) {
+        query += ' AND ' + filters.join(' AND ');
+    }
+
+    query += ' ORDER BY animal_id DESC';
+
+    con.query(query, (err, results) => {
+        if (err) {
+            console.error('Eroare la interogare:', err);
+            return res.status(500).send('Eroare la interogare');
+        }
+        res.render('explore', { pets: results });
+    });
+});
+
+// Ruta pentru a obtine detalii despre un animal
+app.get('/pets/:id', (req, res) => {
+    const animalId = req.params.id;
+    con.query('SELECT * FROM animals WHERE animal_id = ?', [animalId], (err, results) => {
+        if (err) {
+            console.error('Eroare la interogare:', err);
+            return res.status(500).send('Eroare la interogare');
+        }
+        if (results.length === 0) {
+            return res.status(404).send('Animalul nu există');
+        }
+        res.render('animal_detail', { pet: results[0] });
+    });
+});
+
+// app.js
+
+// Ruta pentru pagina my-pets
+app.get('/my-pets', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+
+    const userId = req.session.user.id;
+
+    // Interogare pentru a obtine animalele favorite ale utilizatorului
+    con.query('SELECT * FROM animals WHERE user_id = ?', [userId], (err, results) => {
+        if (err) {
+            console.error('Error querying favorite pets:', err);
+            return res.status(500).send('Error querying favorite pets');
+        }
+
+        // Afisam pagina my-pets.ejs si transmitem lista de animale favorite
+        res.render('my-pets', { favoritePets: results });
+    });
+});
+
+
 // Pornirea serverului
 app.listen(port, () => {
   console.log(`Serverul rulează la adresa http://localhost:${port}`);

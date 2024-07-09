@@ -1,0 +1,31 @@
+<!-- views/add_pet.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaugă un Animal pentru Adopție</title>
+</head>
+<body>
+    <h1>Adaugă un Animal pentru Adopție</h1>
+    <form action="/pets/add" method="POST">
+        <label for="species">Specie:</label>
+        <input type="text" id="species" name="species" required><br><br>
+
+        <label for="breed">Rasă:</label>
+        <input type="text" id="breed" name="breed"><br><br>
+
+        <label for="age">Vârstă:</label>
+        <input type="number" id="age" name="age"><br><br>
+
+        <label for="description">Descriere:</label>
+        <textarea id="description" name="description"></textarea><br><br>
+
+        <label for="photo_url">URL Imagine:</label>
+        <input type="text" id="photo_url" name="photo_url"><br><br>
+
+        <button type="submit">Adaugă Animal</button>
+    </form>
+    <a href="/explore">Înapoi la Lista de Animale</a>
+</body>
+</html>
