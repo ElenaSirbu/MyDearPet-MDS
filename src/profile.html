@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Utilizator</title>
+</head>
+<body>
+    <h1>Profil Utilizator</h1>
+
+    <form id="profileForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="full_name">Nume complet:</label>
+        <input type="text" id="full_name" name="full_name" required><br><br>
+
+        <label for="address">Adresă:</label>
+        <input type="text" id="address" name="address"><br><br>
+
+        <label for="phone_number">Număr de telefon:</label>
+        <input type="text" id="phone_number" name="phone_number"><br><br>
+
+        <button type="submit">Actualizează profil</button>
+    </form>
+
+    <br><br>
+    <a href="/logout">Deconectare</a>
+    <a href="/dashboard">Dashboard</a>
+
+    <script>
+        window.onload = function () {
+            fetch('/profileData') // Ruta pentru a obtine datele utilizatorului
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('username').value = data.username;
+                    document.getElementById('email').value = data.email;
+                    document.getElementById('full_name').value = data.full_name;
+                    document.getElementById('address').value = data.address || '';
+                    document.getElementById('phone_number').value = data.phone_number || '';
+                })
+                .catch(error => console.error('Eroare la obținerea datelor de profil:', error));
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('profileForm').addEventListener('submit', function(event) {
+                event.preventDefault(); 
+
+                const formData = new FormData(this);
+
+                fetch('/updateProfile', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Eroare la actualizarea profilului');
+                    }
+                    window.location.href = '/profile';
+                })
+                .catch(error => console.error('Eroare la actualizarea profilului:', error));
+            });
+        });
+    </script>
+</body>
+</html>

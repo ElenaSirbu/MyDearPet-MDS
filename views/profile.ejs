@@ -1,0 +1,36 @@
+<!-- profile.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Utilizator</title>
+</head>
+<body>
+    <h1>Profil Utilizator</h1>
+
+    <form action="/updateProfile" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="<%= user.username %>" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<%= user.email %>" required><br><br>
+
+        <label for="full_name">Nume complet:</label>
+        <input type="text" id="full_name" name="full_name" value="<%= user.full_name %>" required><br><br>
+
+        <label for="address">Adresă:</label>
+        <input type="text" id="address" name="address" value="<%= user.address || '' %>"><br><br>
+
+        <label for="phone_number">Număr de telefon:</label>
+        <input type="text" id="phone_number" name="phone_number" value="<%= user.phone_number || '' %>"><br><br>
+
+        <button type="submit">Actualizează profil</button>
+    </form>
+
+    <br><br>
+    <a href="/logout">Deconectare</a>
+    <a href="/dashboard">Dashboard</a>
+</body>
+</html>

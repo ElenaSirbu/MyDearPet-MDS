@@ -1,21 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/styles.css">
-  <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Înregistrare Utilizator</title>
 </head>
 <body>
-  <h1>Register</h1>
-  <form action="/register" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <button type="submit">Register</button>
-  </form>
+    <h1>Înregistrare Utilizator</h1>
+    
+    <form action="/register" method="POST">
+        <label for="username">Utilizator:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Parolă:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label for="full_name">Nume complet:</label>
+        <input type="text" id="full_name" name="full_name"><br><br>
+        
+        <label for="address">Adresă:</label>
+        <textarea id="address" name="address"></textarea><br><br>
+        
+        <label for="phone_number">Număr de telefon:</label>
+        <input type="text" id="phone_number" name="phone_number"><br><br>
+        
+        <button type="submit">Înregistrare</button>
+    </form>
 </body>
 </html>
