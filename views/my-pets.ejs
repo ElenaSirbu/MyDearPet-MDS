@@ -1,31 +1,13 @@
 <!-- my-pets.ejs -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>My Pets</title>
-</head>
-<body>
-    <h1>My Pets</h1>
-    <div>
-        <h2>Favorite Pets</h2>
-        <% favoritePets.forEach(pet => { %>
-            <div>
-                <h3><%= pet.species %> - <%= pet.breed %></h3>
-                <p>Age: <%= pet.age %> years</p>
-                <p><%= pet.description %></p>
-                <% if (pet.photo_url) { %>
-                    <img src="<%= pet.photo_url %>" alt="<%= pet.species %>">
-                <% } %>
-                <a href="/pets/<%= pet.animal_id %>">View Details</a>
-            </div>
-        <% }) %>
-    </div>
-    <a href="/dashboard">Back to Dashboard</a>
-</body>
-</html>
+<h1>My Favorite Pets</h1>
+<ul>
+    <% favoritePets.forEach(pet => { %>
+        <li>
+            <h3><%= pet.species %></h3>
+            <p><%= pet.description %></p>
+            <form action="/remove-from-preferences/<%= pet.animal_id %>" method="POST">
+                <button type="submit">Remove from Favorites</button>
+            </form>
+        </li>
+    <% }); %>
+</ul>

@@ -366,26 +366,57 @@ app.get('/pets/:id', (req, res) => {
     });
 });
 
-// app.js
+// Ruta pentru adaugare la preferinte
+app.post('/add-to-preferences/:id', requireLogin, (req, res) => {
+  const userId = req.session.user.id;
+  const animalId = req.params.id;
+  
+  con.query('INSERT INTO preferences (user_id, animal_id, status) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE status = VALUES(status)', 
+  [userId, animalId, 'liked'], (err, result) => {
+      if (err) {
+          console.error('Eroare la adăugarea animalului la preferințe:', err);
+          return res.status(500).send('Eroare la adăugarea animalului la preferințe');
+      }
+      res.send('Animal adăugat la preferințe cu succes!');
+  });
+});
 
-// Ruta pentru pagina my-pets
-app.get('/my-pets', (req, res) => {
-    if (!req.session.user) {
-        return res.redirect('/login');
-    }
+//Eliminarea din preferinte
+app.post('/remove-from-preferences/:id', requireLogin, (req, res) => {
+  const userId = req.session.user.id;
+  const animalId = req.params.id;
+  
+  con.query('UPDATE preferences SET status = ? WHERE user_id = ? AND animal_id = ?', 
+  ['disliked', userId, animalId], (err, result) => {
+      if (err) {
+          console.error('Eroare la eliminarea animalului din preferințe:', err);
+          return res.status(500).send('Eroare la eliminarea animalului din preferințe');
+      }
+      res.send('Animal eliminat din preferințe cu succes!');
+  });
+});
 
-    const userId = req.session.user.id;
+//Pagina my-pets = animale favorite
+app.get('/my-pets', requireLogin, (req, res) => {
+  if (!req.session.user) {
+      return res.redirect('/login');
+  }
 
-    // Interogare pentru a obtine animalele favorite ale utilizatorului
-    con.query('SELECT * FROM animals WHERE user_id = ?', [userId], (err, results) => {
-        if (err) {
-            console.error('Error querying favorite pets:', err);
-            return res.status(500).send('Error querying favorite pets');
-        }
+  const userId = req.session.user.id;
 
-        // Afisam pagina my-pets.ejs si transmitem lista de animale favorite
-        res.render('my-pets', { favoritePets: results });
-    });
+  // Interogare pentru a obtine animalele preferate ale utilizatorului
+  con.query(`SELECT a.* 
+             FROM animals a 
+             JOIN preferences p ON a.animal_id = p.animal_id 
+             WHERE p.user_id = ? AND p.status = 'liked'`, [userId], (err, results) => {
+      if (err) {
+          console.error('Error querying favorite pets:', err);
+          return res.status(500).send('Error querying favorite pets');
+      }
+
+      // Afisam pagina my-pets.ejs si transmitem lista de animale preferate
+      res.render('my-pets', { favoritePets: results });
+  });
 });
 
 
