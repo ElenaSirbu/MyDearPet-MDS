@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Animale Disponibile pentru Adopție</title>
 </head>
 <body>
@@ -33,31 +33,52 @@
                     <img src="<%= pet.photo_url %>" alt="<%= pet.species %>">
                 <% } %>
                 <button class="likeButton" data-animal-id="<%= pet.animal_id %>">Like</button>
+                <button class="dislikeButton" data-animal-id="<%= pet.animal_id %>">Dislike</button>
                 <a href="/pets/<%= pet.animal_id %>">Vezi detalii</a>
             </div>
         <% }) %>
     </div>
 
     <script>
-        // JavaScript pentru gestionarea butoanelor Like
+        // JavaScript pentru gestionarea butoanelor Like și Dislike
         document.addEventListener('DOMContentLoaded', function() {
             const likeButtons = document.querySelectorAll('.likeButton');
+            const dislikeButtons = document.querySelectorAll('.dislikeButton');
 
             likeButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const animalId = this.getAttribute('data-animal-id');
-                    fetch(`/addToFavorites/${animalId}`, {
+                    fetch(`/add-to-preferences/${animalId}`, {
                         method: 'POST',
                     })
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('Failed to add animal to favorites');
+                            throw new Error('Failed to add animal to preferences');
                         }
                         alert('Animal added to favorites!');
                     })
                     .catch(error => {
-                        console.error('Error adding animal to favorites:', error);
+                        console.error('Error adding animal to preferences:', error);
                         alert('Failed to add animal to favorites. Please try again later.');
+                    });
+                });
+            });
+
+            dislikeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const animalId = this.getAttribute('data-animal-id');
+                    fetch(`/remove-from-preferences/${animalId}`, {
+                        method: 'POST',
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to remove animal from preferences');
+                        }
+                        alert('Animal removed from favorites!');
+                    })
+                    .catch(error => {
+                        console.error('Error removing animal from preferences:', error);
+                        alert('Failed to remove animal from favorites. Please try again later.');
                     });
                 });
             });
