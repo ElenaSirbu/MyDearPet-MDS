@@ -95,39 +95,44 @@ app.post('/register', async (req, res) => {
 
 // Ruta pentru autentificare
 app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-
-  if (!username || !password) {
-    return res.status(400).send('Toate câmpurile sunt obligatorii');
-  }
-
-  con.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
-    if (err) {
-      console.error('Eroare la interogare:', err);
-      return res.status(500).send('Eroare la autentificare');
+    const { username, password } = req.body;
+  
+    if (!username || !password) {
+      return res.status(400).send('Toate câmpurile sunt obligatorii');
     }
-
-    if (results.length === 0) {
-      return res.status(400).send('Utilizatorul nu există');
-    }
-
-    const user = results[0];
-
-    try {
-      const match = await bcrypt.compare(password, user.password);
-
-      if (match) {
-        req.session.user = user;
-        return res.redirect('/dashboard');
-      } else {
-        res.status(400).send('Parolă incorectă');
+  
+    con.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
+      if (err) {
+        console.error('Eroare la interogare:', err);
+        return res.status(500).send('Eroare la autentificare');
       }
-    } catch (error) {
-      console.error('Eroare la comparare:', error);
-      res.status(500).send('Eroare la comparare');
-    }
+  
+      if (results.length === 0) {
+        return res.status(400).send('Utilizatorul nu există');
+      }
+  
+      const user = results[0];
+  
+      try {
+        console.log(`Password from DB: ${user.password}`);
+        console.log(`Password from request: ${password}`);
+  
+        const match = await bcrypt.compare(password, user.password);
+  
+        if (match) {
+          req.session.user = user;
+          return res.redirect('/dashboard');
+        } else {
+          console.log('Parolă incorectă');
+          res.status(400).send('Parolă incorectă');
+        }
+      } catch (error) {
+        console.error('Eroare la comparare:', error);
+        res.status(500).send('Eroare la comparare');
+      }
+    });
   });
-});
+  
 
 // Ruta pentru deconectare
 app.get('/logout', (req, res) => {
