@@ -26,4 +26,8 @@ Autentificare și Profil Utilizator: Utilizatorii pot crea conturi personale pen
 10. Ca utilizator, doresc ca datele mele personale să fie protejate și să respectați normele de confidențialitate, pentru a avea încredere în utilizarea platformei pentru adopții.
 ## Backlog
 **[Backlog][https://github.com/users/ElenaSirbu/projects/1]**
+## Diagrame
+### Workflow
+
+![diagrama_workflow](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/b5c024f0-7d34-4960-adda-1753984ed552)
 
