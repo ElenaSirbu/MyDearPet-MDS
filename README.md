@@ -25,7 +25,7 @@ Autentificare și Profil Utilizator: Utilizatorii pot crea conturi personale pen
 9. Ca utilizator, doresc să primesc notificări în timp real despre noi animale disponibile pentru adopție sau despre actualizări ale stării adopțiilor.
 10. Ca utilizator, doresc ca datele mele personale să fie protejate și să respectați normele de confidențialitate, pentru a avea încredere în utilizarea platformei pentru adopții.
 ## Backlog
-**[Backlog][https://github.com/users/ElenaSirbu/projects/1]**
+[Backlog](https://github.com/users/ElenaSirbu/projects/1)
 ## Diagrame
 ### Workflow
 
@@ -49,6 +49,20 @@ M-am folosit de chatGPT in dezvoltarea proiectului. Un exemplu de intrebare este
 ![image](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/a036860b-6581-4326-880c-abbebf6ad8f3)
 ![image](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/0b37be55-77e6-46ee-a74d-7af2f17661e2)
 
+## Source Control
+Proiectul este incarcat pe github. Am realizat commit-uri, creare branch, pull request, merge/rebase, atat cu selectare directa, cat si cu ajutorul comenzilor in terminal. Exemple de comenzi folosite:
+git init
+git status
+git checkout -b branch1
+git branch
+git commit -m "Add workflow diagram"
+git push origin branch1
+git pull origin main
+git add .
+git push origin main
+git clone "https://github.com/ElenaSirbu/MyDearPet-MDS.git"
+git pull origin main --rebase
+git rebase --continue 
 
 
 
