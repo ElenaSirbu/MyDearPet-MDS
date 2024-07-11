@@ -31,3 +31,7 @@ Autentificare și Profil Utilizator: Utilizatorii pot crea conturi personale pen
 
 ![diagrama_workflow](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/b5c024f0-7d34-4960-adda-1753984ed552)
 
+### UML
+
+![diagrama_uml](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/60d70f60-663a-47e6-b2b9-c3dce2fd2ddb)
+
