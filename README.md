@@ -35,3 +35,22 @@ Autentificare și Profil Utilizator: Utilizatorii pot crea conturi personale pen
 
 ![diagrama_uml](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/60d70f60-663a-47e6-b2b9-c3dce2fd2ddb)
 
+## Teste automate
+Am utilizat framework-ul de testare Jest. Am testat rutele de autentificare si inregistrare. ([Fisierul test](app.test.js))
+![image](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/5495abd3-cc64-4057-ba39-d9c7fe2797e7)
+
+## AI Tool
+M-am folosit de chatGPT in dezvoltarea proiectului. Un exemplu de intrebare este chiar pentru punctul anterior:
+![image](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/21590a77-4d93-4744-89e8-1157ff55b32e)
+![image](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/1feff72a-463c-49a6-9a9e-c787b62570d4)
+![image](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/1b181f87-7a92-4143-afcf-53398fe02992)
+![image](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/fab24a3e-e1aa-4ca0-b01f-5c17275eac10)
+![image](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/1e5061fc-e8a2-414c-bcfd-694f23e42b5b)
+![image](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/a036860b-6581-4326-880c-abbebf6ad8f3)
+![image](https://github.com/ElenaSirbu/MyDearPet-MDS/assets/62076797/0b37be55-77e6-46ee-a74d-7af2f17661e2)
+
+
+
+
+
+
