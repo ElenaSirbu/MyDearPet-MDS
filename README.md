@@ -64,7 +64,8 @@ git clone "https://github.com/ElenaSirbu/MyDearPet-MDS.git"
 git pull origin main --rebase
 git rebase --continue 
 
-
+## Bug report
+Am rezolvat problema [#1](https://github.com/ElenaSirbu/MyDearPet-MDS/issues/1) din issues cu pull request-ul [#4](github.com/ElenaSirbu/MyDearPet-MDS/pull/4).
 
 
 
